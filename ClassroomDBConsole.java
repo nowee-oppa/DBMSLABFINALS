@@ -19,7 +19,7 @@ public class ClassroomDBConsole {
                 	System.out.println("Thank your for trying this program...");
                 	break;
                 }
-                processChoice(choice); //case section for choices
+                tableChoice(choice); //case section for choices
         	}        	
         } catch (SQLException e) {
         	System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
@@ -50,4 +50,18 @@ public class ClassroomDBConsole {
     	} while (choice < 1 || choice > 5);
         return choice;
     	}
+    
+    public static void tableChoice(int table){
+    	switch (table) {
+    		case 1: //edit student table
+    			//crud options for table 1 here
+    			break;
+    		case 2: //edit class table
+    			break;
+    		case 3: //edit subject table
+    			break;
+    		case 4: //edit instructor table
+    			break;
+    	}
     }
+}
