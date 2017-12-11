@@ -49,6 +49,8 @@ public class EskwelaController {
     	ps.setString(2, stud_id);
     	ps.executeUpdate();
     }
+	
+    //justine create/insert table 3
     public void addStudent(int stud_id, String first_name, String last_name, String address, char gender, String course, int year) throws Exception{ //Create group create/insert table 3
     	sql = "Insert into student values(?,?,?,?,?,?,?)";
     	ps = connection.prepareStatement(sql);
@@ -62,12 +64,14 @@ public class EskwelaController {
     	ps.executeUpdate();
     }
     
+    //justine retrieve table 4
     public ResultSet listSubjects() throws Exception { //Create group retrieve table 4
     	statement = connection.createStatment();
     	sql = "select * from subject";
     	return statement.executeQuery(sql);
     }
     
+    //justine update table 1
     public void updateClass(String classcode, String col, String replacement){ //Create group update table 1
     	sql = "update student set " + col + " = ? where classcode = ?";
     	ps = connection.prepareStatement(sql);
@@ -76,6 +80,7 @@ public class EskwelaController {
     	ps.executeUpdate();
     }
     
+    //justine delete table 2
     public void deleteInstructor(String instruc_id) throws Exception { //Create group delete table 2
     	sql = "delete from instructor where instruc_id = ?";
     	ps = connection.prepareStatement(sql);

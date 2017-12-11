@@ -18,6 +18,7 @@ public class EskwelaController {
     	Class.forName("com.mysql.jdbc.Driver");
     	connection = DriverManager.getConnection(url, user, pwd);
     }
+    
     public void addClass(String classcode, String room, String day, String subjid, int units) throws Exception{ //Create group create/insert table 1
     	sql = "Insert into classes values(?,?,?,?,?)";
     	ps = connection.prepareStatement(sql);
@@ -80,6 +81,13 @@ public class EskwelaController {
     	sql = "delete from instructor where instruc_id = ?";
     	ps = connection.prepareStatement(sql);
     	ps.setString(1, instruc_id);
+    	ps.executeUpdate();
+    }
+    
+    public void deleteClass(String classcode) throws Exception {
+    	sql = "delete from classes where classcode = ?";
+    	ps = connection.prepareStatement(sql);
+    	ps.setString(1, classcode);
     	ps.executeUpdate();
     }
     
