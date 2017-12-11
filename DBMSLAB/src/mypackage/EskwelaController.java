@@ -31,7 +31,7 @@ public class EskwelaController {
     }
     
     public void updateClass(String classcode, String col, String replacement) throws Exception{ //Create group update table 1
-    	sql = "update student set " + col + " = ? where classcode = ?";
+    	sql = "update classes set " + col + " = ? where classcode = ?";
     	ps = connection.prepareStatement(sql);
     	ps.setString(1, replacement);
     	ps.setString(2, classcode);
@@ -129,7 +129,7 @@ public class EskwelaController {
     	ps.setInt(4, units);
     	ps.executeUpdate();
     }
-    //R2
+    
     public ResultSet listSubject() throws Exception {
     	statement = connection.createStatement();
     	sql = "select * from subject";
