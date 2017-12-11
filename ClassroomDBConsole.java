@@ -143,16 +143,19 @@ public class ClassroomDBConsole {
     	switch (procCRUD) {
     		case 1:
     			//create
+			addSubject()
     			break;
     		case 2:
     			//retrieve
-                	listSubjects();
+                	viewSubjectsInfo();
     			break;
     		case 3:
     			//update
+			editSubject()
     			break;
     		case 4:
     			//delete
+			deleteSubject()
     			break;
     	}
     }
