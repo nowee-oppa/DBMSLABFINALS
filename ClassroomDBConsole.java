@@ -105,15 +105,19 @@ public class ClassroomDBConsole {
     	switch (procCRUD) {
     		case 1:
     			//create
+    			addClass();
     			break;
     		case 2:
     			//retrieve
+    			viewClasses();
     			break;
     		case 3:
     			//update
+    			editClassInfo();
     			break;
     		case 4:
     			//delete
+    			deleteClass();
     			break;
     	}
     }
@@ -244,4 +248,50 @@ public class ClassroomDBConsole {
     	} while (procCRUD < 1 || procCRUD > 5);
     	return procCRUD;
     }
+    /*
+     * Block of methods for CRUD statements
+     * 
+     */
+    
+    //class table, create new class
+    private static void addClass(){
+    	printDivider();
+    	System.out.print("Enter the classcode: ");
+    	String classcode = kb.nextLine();
+    	System.out.print("Enter the room where the class is held: ");
+    	String room = kb.nextLine();
+    	System.out.print("Enter the schedule of the class (days): ");
+    	String days = kb.nextLine();
+    	System.out.print("Enter the subject id for this class: ");
+    	String subjid = kb.nextLine();
+    	System.out.print("How many units does this class have: ");
+    	int units = kb.nextLine();
+    	
+    	try {
+    		controller.addClass(classcode, room, days, subjid, units);
+    		System.out.println(classcode + " " + subjid + " was successfully added to the list of classes.");
+    		printDivider();
+    		System.out.println();
+    	} catch (MySQLIntegrityConstraintViolationException e) {
+    		System.out.println("There is already a class with that code within the system. Please try again.");
+    		addClass();
+    	} catch (Exception e) {
+    		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
+    	}
+    }
+    
+    private static void viewClasses() {
+    	printDivider();
+    	try {
+    		ResultSet cls = controller.
+    	}
+    }
+    
+    private static void printDivider() {
+    	for (int i = 1; i <= 90; i++) {
+    		System.out.print("*");
+    	}
+    	System.out.println();
+    }
+    
 }
