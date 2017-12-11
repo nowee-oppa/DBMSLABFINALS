@@ -307,10 +307,16 @@ public class ClassroomDBConsole {
     	}
     }
     
-    public static void deleteClass() {
+    public static void deleteClasses() {
     	printDivider();
     	try {
-    		String classcode = 
+    		ResultSet cls = controller.viewClasses()
+    		System.out.print("Enter the class code of the class you wish to remove from the list.");
+    		String cc = kbd.nextln();
+    		controller.deleteClass(cc);
+    		System.out.println(cc + " has been removed from the class list.");
+    	} catch (Exception e){ 
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
     
