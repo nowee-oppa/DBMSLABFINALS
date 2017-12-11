@@ -146,7 +146,7 @@ public class ClassroomDBConsole {
     			break;
     		case 2:
     			//retrieve
-                listSubjects();
+                	listSubjects();
     			break;
     		case 3:
     			//update
