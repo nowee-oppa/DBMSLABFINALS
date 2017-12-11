@@ -65,7 +65,7 @@ public class EskwelaController {
     }
     
     //justine retrieve table 4
-    public ResultSet listSubjects() throws Exception { //Create group retrieve table 4
+    public ResultSet viewSubjectsInfo() throws Exception { //Create group retrieve table 4
     	statement = connection.createStatment();
     	sql = "select * from subject";
     	return statement.executeQuery(sql);
