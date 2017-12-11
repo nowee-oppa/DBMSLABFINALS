@@ -15,7 +15,7 @@ public class ClassroomDBConsole {
         controller = new EskwelaController();
         try {   
         	int choice = 0;
-        	String url = "jdbc:mysql://localhost/contact?useSSL=false";
+        	String url = "jdbc:mysql://localhost/eskwelahan?useSSL=false";
             controller.dbaseConnect(url,"root",null);
         	while (true) {        		
                 choice = selectTableMenu(); //select a table to edit
