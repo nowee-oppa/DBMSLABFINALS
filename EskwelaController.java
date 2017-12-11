@@ -44,11 +44,46 @@ public class EskwelaController {
     
     public void deleteStudentClass(String classcode, String stud_id) throws Exception { //Create group delete table 4
     	sql = "delete from student_class where classcode = ? and stud_id = ?";
-    	ps = connectiont.prepareStatement(sql);
+    	ps = connection.prepareStatement(sql);
     	ps.setString(1, classcode);
     	ps.setString(2, stud_id);
     	ps.executeUpdate();
     }
+    public void addStudent(int stud_id, String first_name, String last_name, String address, char gender, String course, int year) throws Exception{ //Create group create/insert table 3
+    	sql = "Insert into student values(?,?,?,?,?,?,?)";
+    	ps = connection.prepareStatement(sql);
+    	ps.setString(1, stud_id);
+    	ps.setString(2, first_name);
+    	ps.setString(3, last_name);
+    	ps.setString(4, address);
+    	ps.setString(5, gender);
+    	ps.setString(6, course);
+    	ps.setString(7, year);
+    	ps.executeUpdate();
+    }
+    
+    public ResultSet listSubjects() throws Exception { //Create group retrieve table 4
+    	statement = connection.createStatment();
+    	sql = "select * from subject";
+    	return statement.executeQuery(sql);
+    }
+    
+    public void updateClassInfo(int classcode, String col, String replacement){ //Create group update table 1
+    	sql = "update student set " + col + " = ? where classcode = ?";
+    	ps = connection.prepareStatement(sql);
+    	ps.setString(1, replacement);
+    	ps.setString(2, classcode);
+    	ps.executeUpdate();
+    }
+    
+    public void deleteInstructor(String instruc_id) throws Exception { //Create group delete table 2
+    	sql = "delete from instructor where instruc_id = ?";
+    	ps = connection.prepareStatement(sql);
+    	ps.setString(1, instruc_id);
+    	ps.executeUpdate();
+    }
+	
+	
     
 	public void close() {
         try {
