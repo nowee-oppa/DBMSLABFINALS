@@ -283,7 +283,7 @@ public class ClassroomDBConsole {
     		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
     	}
     }
-    /*
+    
     private static void viewClasses() {
     	printDivider();
     	try {
@@ -309,7 +309,7 @@ public class ClassroomDBConsole {
     		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
-    */
+    
     
     private static void deleteClass() {
     	System.out.print("Enter classcode: ");
@@ -330,6 +330,14 @@ public class ClassroomDBConsole {
     		System.out.print("*");
     	}
     	System.out.println();
+    }
+    
+    private static int getResTotal(ResultSet rs) throws Exception {
+    	int count = 0;
+    	rs.last();
+    	count = rs.getRow();
+    	rs.beforeFirst();
+    	return count;    	
     }
     
     
