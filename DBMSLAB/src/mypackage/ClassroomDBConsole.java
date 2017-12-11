@@ -3,7 +3,6 @@ package mypackage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 public class ClassroomDBConsole {
@@ -101,6 +100,7 @@ public class ClassroomDBConsole {
     			break;
     		case 4:
     			//delete
+    			deleteClass();
     			break;
     	}
     }
@@ -113,15 +113,15 @@ public class ClassroomDBConsole {
     			break;
     		case 2:
     			//retrieve
-    			viewClasses();
+    			//viewClasses();
     			break;
     		case 3:
     			//update
-    			editClassInfo();
+    			//editClassInfo();
     			break;
     		case 4:
     			//delete
-    			deleteClass();
+    			//deleteClass();
     			break;
     	}
     }
@@ -150,7 +150,7 @@ public class ClassroomDBConsole {
     			break;
     		case 2:
     			//retrieve
-                	listSubjects();
+                	//listSubjects();
     			break;
     		case 3:
     			//update
@@ -283,7 +283,7 @@ public class ClassroomDBConsole {
     		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
     	}
     }
-    
+    /*
     private static void viewClasses() {
     	printDivider();
     	try {
@@ -309,12 +309,28 @@ public class ClassroomDBConsole {
     		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
+    */
     
+    private static void deleteClass() {
+    	System.out.print("Enter classcode: ");
+    	String classcode = kb.nextLine();
+    	try {
+    		controller.deleteClass(classcode);
+    		System.out.println(classcode + " was successfully deleted.");
+    	} catch (MySQLIntegrityConstraintViolationException e) {
+    		System.out.println("Error. Classcode does not exist. please try again!");
+    		deleteClass();
+    	} catch (Exception e) {
+    		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
+    	}
+    	
+    }
     private static void printDivider() {
     	for (int i = 1; i <= 90; i++) {
     		System.out.print("*");
     	}
     	System.out.println();
     }
+    
     
 }
