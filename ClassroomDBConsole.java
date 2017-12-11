@@ -7,6 +7,7 @@ public class ClassroomDBConsole {
     private static DBController controller;
     private static Scanner kb = new Scanner(System.in);
     
+    //MAIN METHOD HERE
     public static void main(String[] args) {
         controller = new DBController();
         try {   
@@ -30,6 +31,7 @@ public class ClassroomDBConsole {
         }
     }
     
+    //MAIN TABLE
     public static int selectTableMenu(){
     	int choice = 0;
     	do {
@@ -37,7 +39,7 @@ public class ClassroomDBConsole {
     		System.out.println("1. Classes");
     		System.out.println("2. Instructor Information");
     		System.out.println("3. Student Information");
-    		System.out.println("4. Student's Class Info");
+    		System.out.println("4. Subjects");
     		System.out.println("5. Quit")
     		System.out.println("Enter the number of your choice:");
             try {
@@ -51,24 +53,109 @@ public class ClassroomDBConsole {
     	} while (choice < 1 || choice > 5);
         return choice;
     	}
+    /* 
+     * Block of case statements for appropriate tables and CRUD operations
+     * 
+     */
     
     public static void tableChoice(int table){
+    	int procCRUD = 0;
     	switch (table) {
-    		case 1: //edit classes table
-    			//crud options for table 1 here
-    			classesMenu();
+    		case 1: //edit respective tables, menu appears, then processes input for CRUD
+    			procCRUD = classesMenu();
+    			if (procCRUD == 5) { break;}
+    			processClass(procCRUD);
     			break;
-    		case 2: //edit class table
+    		case 2: 
+    			procCRUD = instructorMenu();
+    			if (procCRUD == 5) { break;}
+    			processInst(procCRUD);
     			break;
-    		case 3: //edit subject table
+    		case 3: 
+    			procCRUD = studentMenu();
+    			if (procCRUD == 5) { break;}
+    			processStudent(procCRUD);
     			break;
-    		case 4: //edit instructor table
+    		case 4: 
+    			procCRUD = subjectMenu();
+    			if (procCRUD == 5) { break;}
+    			processSubject(procCRUD);
     			break;
     	}
     }
     
+    public static void processClass(int procCRUD){
+    	switch (procCRUD) {
+    		case 1:
+    			//create
+    			break;
+    		case 2:
+    			//retrieve
+    			break;
+    		case 3:
+    			//update
+    			break;
+    		case 4:
+    			//delete
+    			break;
+    	}
+    }
+    
+    public static void processInst(int procCRUD){
+    	switch (procCRUD) {
+    		case 1:
+    			//create
+    			break;
+    		case 2:
+    			//retrieve
+    			break;
+    		case 3:
+    			//update
+    			break;
+    		case 4:
+    			//delete
+    			break;
+    	}
+    }
+    
+    public static void processStudent(int procCRUD){
+    	switch (procCRUD) {
+    		case 1:
+    			//create
+    			break;
+    		case 2:
+    			//retrieve
+    			break;
+    		case 3:
+    			//update
+    			break;
+    		case 4:
+    			//delete
+    			break;
+    	}
+    }
+    
+    public static void processSubject(int procCRUD){
+    	switch (procCRUD) {
+    		case 1:
+    			//create
+    			break;
+    		case 2:
+    			//retrieve
+    			break;
+    		case 3:
+    			//update
+    			break;
+    		case 4:
+    			//delete
+    			break;
+    	}
+    }
+    /* 
+     * Block of menu methods for each table
+     */
+    
     public static int classesMenu() {
-    	int classCRUD = 0;
     	do {
     		System.out.println("What would you like to do?");
     		System.out.println();
@@ -79,16 +166,81 @@ public class ClassroomDBConsole {
     		System.out.println("5. Go back");
     		System.out.println("Enter choice: ");
     		try {
-    			classCrud = Integer.parseInt(kb.nextLine());
+    			procCRUD = Integer.parseInt(kb.nextLine());
     		} catch (Exception e) {
     			System.out.println("Please select from the options above.");
     			System.out.print("Press any key to continue.");
     			kb.nextLine();
     		}
     		System.out.println();
-    	} while (classCRUD < 1 || classCRUD > 5);
-    	return classCRUD;
+    	} while (procCRUD < 1 || procCRUD > 5);
+    	return procCRUD;
     }
     
+    public static int instructorMenu() {
+    	do {
+    		System.out.println("What would you like to do?");
+    		System.out.println();
+    		System.out.println("1. Add a new instructor");
+    		System.out.println("2. View a list of all instructors");
+    		System.out.println("3. Edit instructor information");
+    		System.out.println("4. Remove an instructor from the list");
+    		System.out.println("5. Go back");
+    		System.out.println("Enter choice: ");
+    		try {
+    			procCRUD = Integer.parseInt(kb.nextLine());
+    		} catch (Exception e) {
+    			System.out.println("Please select from the options above.");
+    			System.out.print("Press any key to continue.");
+    			kb.nextLine();
+    		}
+    		System.out.println();
+    	} while (procCRUD < 1 || procCRUD > 5);
+    	return procCRUD;
+    }
     
+    public static int studentMenu() {
+    	do {
+    		System.out.println("What would you like to do?");
+    		System.out.println();
+    		System.out.println("1. Add a new student");
+    		System.out.println("2. View all students");
+    		System.out.println("3. Edit student information");
+    		System.out.println("4. Remove a student from the list");
+    		System.out.println("5. Go back");
+    		System.out.println("Enter choice: ");
+    		try {
+    			procCRUD = Integer.parseInt(kb.nextLine());
+    		} catch (Exception e) {
+    			System.out.println("Please select from the options above.");
+    			System.out.print("Press any key to continue.");
+    			kb.nextLine();
+    		}
+    		System.out.println();
+    	} while (procCRUD < 1 || procCRUD > 5);
+    	return procCRUD;
+    } 
+    
+    public static int subjectMenu() {
+    	int procCRUD = 0;
+    	do {
+    		System.out.println("What would you like to do?");
+    		System.out.println();
+    		System.out.println("1. Add a new subject");
+    		System.out.println("2. View a list of all subjects");
+    		System.out.println("3. Edit subject information");
+    		System.out.println("4. Remove a subject from the list");
+    		System.out.println("5. Go back");
+    		System.out.println("Enter choice: ");
+    		try {
+    			procCRUD = Integer.parseInt(kb.nextLine());
+    		} catch (Exception e) {
+    			System.out.println("Please select from the options above.");
+    			System.out.print("Press any key to continue.");
+    			kb.nextLine();
+    		}
+    		System.out.println();
+    	} while (procCRUD < 1 || procCRUD > 5);
+    	return procCRUD;
+    }
 }
