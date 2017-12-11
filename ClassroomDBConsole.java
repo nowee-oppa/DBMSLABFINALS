@@ -283,7 +283,26 @@ public class ClassroomDBConsole {
     private static void viewClasses() {
     	printDivider();
     	try {
-    		ResultSet cls = controller.
+    		ResultSet cls = controller.listClasses();
+    		if (getResTotal(cls) == 0) {
+    			System.out.println("There are currently no classes available.");
+    		} else {
+    			System.out.println("Current available classes:");
+    			System.out.println();
+    			int row = 1;
+    			while (cls.next()) {
+    				String ccode = cls.getString(1);
+    				String rm = cls.getString(2);
+    				String dys = cls.getString(3);
+    				String sub = cls.getString(4);
+    				int unitNum = cls.getInt(5);
+    				System.out.printf("%-4d %-15s %-15s %-15s %-15s %-15s%n", row++, ccode, rm, dys, sub, unitNum);
+    			}
+    		}
+			printDivider();
+			System.out.println();
+    	} catch (Exception e) {
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
     
