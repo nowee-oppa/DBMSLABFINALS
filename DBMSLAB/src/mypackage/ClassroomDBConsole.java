@@ -1,15 +1,18 @@
 package mypackage;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 public class ClassroomDBConsole {
-    private static DBController controller;
+    private static EskwelaController controller;
     private static Scanner kb = new Scanner(System.in);
     
     //MAIN METHOD HERE
     public static void main(String[] args) {
-        controller = new DBController();
+        controller = new EskwelaController();
         try {   
         	int choice = 0;
         	String url = "jdbc:mysql://localhost/contact?useSSL=false";
@@ -40,7 +43,7 @@ public class ClassroomDBConsole {
     		System.out.println("2. Instructor Information");
     		System.out.println("3. Student Information");
     		System.out.println("4. Subjects");
-    		System.out.println("5. Quit")
+    		System.out.println("5. Quit");
     		System.out.println("Enter the number of your choice:");
             try {
             	choice = Integer.parseInt(kb.nextLine());
