@@ -68,7 +68,7 @@ public class EskwelaController {
     	return statement.executeQuery(sql);
     }
     
-    public void updateClass(int classcode, String col, String replacement){ //Create group update table 1
+    public void updateClass(String classcode, String col, String replacement){ //Create group update table 1
     	sql = "update student set " + col + " = ? where classcode = ?";
     	ps = connection.prepareStatement(sql);
     	ps.setString(1, replacement);
