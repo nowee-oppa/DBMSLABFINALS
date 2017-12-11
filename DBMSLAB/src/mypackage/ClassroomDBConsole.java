@@ -108,20 +108,16 @@ public class ClassroomDBConsole {
     public static void processInst(int procCRUD){
     	switch (procCRUD) {
     		case 1:
-    			//create
-    			addClass();
+    			addInstructor();
     			break;
     		case 2:
-    			//retrieve
-    			//viewClass();
+    			viewInstructor();
     			break;
     		case 3:
-    			//update
-    			//editClass();
+    			editInstructor();
     			break;
     		case 4:
-    			//delete
-    			//deleteClass();
+    			deleteInstructor();
     			break;
     	}
     }
@@ -408,7 +404,7 @@ public class ClassroomDBConsole {
 			if (getResTotal(cls) == 0) {
 				System.out.println("No classes are available at this time.");
 			}
-			System.out.println("Enter the classcode of the class that you wish to edit from the table: ");
+			System.out.println("Enter the Instructor ID of the Instructor that you wish to edit from the table: ");
 			String classcode = kb.nextLine();
 			System.out.println("Enter the column that you wish to change");
 			String col = kb.nextLine();
@@ -425,14 +421,15 @@ public class ClassroomDBConsole {
     	printDivider();
     	try {
     		viewClass();
-    		System.out.print("Enter the class code of the class you wish to remove from the list.");
+    		System.out.print("Enter the Instructor ID of the instructor you wish to remove from the list.");
     		String cc = kb.nextLine();
-    		controller.deleteClass(cc);
-    		System.out.println(cc + " has been removed from the class list.");
+    		controller.deleteInstructor(cc);
+    		System.out.println(cc + " has been removed from the instructor list.");
     	} catch (Exception e){ 
     		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
+    //end of instructor table
     
     
     private static void printDivider() {
