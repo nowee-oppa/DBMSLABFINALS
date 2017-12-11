@@ -108,12 +108,17 @@ public class EskwelaController {
     
     public void deleteStudent(int stud_id) throws Exception { //Create group delete table 3
     	sql = "delete from student where stud_id = ? ";
-    	ps = connectiont.prepareStatement(sql);
+    	ps = connection.prepareStatement(sql);
     	ps.setString(1, stud_id);
     	ps.executeUpdate();
     }
 
-	
+	public void deleteClass(String classcode) throws Exception { table 1 delete
+		sql = "delete from classes where classcode = ?";
+		ps = connection.prepareStatement(sql);
+		ps.setString(1, classcode);
+		ps.executeUpdate();
+	}
 	public void close() {
         try {
             if (resultSet != null) {

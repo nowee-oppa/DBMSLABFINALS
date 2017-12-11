@@ -280,6 +280,7 @@ public class ClassroomDBConsole {
     	}
     }
     
+    //class table, retrieve data from table
     private static void viewClasses() {
     	printDivider();
     	try {
@@ -303,6 +304,13 @@ public class ClassroomDBConsole {
 			System.out.println();
     	} catch (Exception e) {
     		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+    	}
+    }
+    
+    public static void deleteClass() {
+    	printDivider();
+    	try {
+    		String classcode = 
     	}
     }
     
