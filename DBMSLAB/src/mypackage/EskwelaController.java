@@ -68,7 +68,7 @@ public class EskwelaController {
     	return statement.executeQuery(sql);
     }
     
-    public void updateClass(int classcode, String col, String replacement){ //Create group update table 1
+    public void updateClass(String classcode, String col, String replacement){ //Create group update table 1
     	sql = "update student set " + col + " = ? where classcode = ?";
     	ps = connection.prepareStatement(sql);
     	ps.setString(1, replacement);
@@ -82,9 +82,38 @@ public class EskwelaController {
     	ps.setString(1, instruc_id);
     	ps.executeUpdate();
     }
-	
-	
     
+    public void addSubject(String description,int instruc_id,String subjid,int units) throws Exception{ //Create group create/insert table 4
+    	sql = "Insert into classes values(?,?,?,?)";
+    	ps = connection.prepareStatement(sql);
+    	ps.setString(1, description);
+    	ps.setString(2, instruc_id);
+    	ps.setString(3, subjid);
+    	ps.setString(4, units);
+    	ps.executeUpdate();
+    }
+    
+    public ResultSet listClasses() throws Exception { //Create group retrieve table 1
+    	statement = connection.createStatment();
+    	sql = "select * from classes";
+    	return statement.executeQuery(sql);
+    }
+    
+    public void updateInstructor(int instruc_id,String col, String replacement){ //Create group update table 2
+    	sql = "update instructor set " + col + " = ? where instruc_id = ?";
+    	ps = connection.prepareStatement(sql);
+    	ps.setString(1, replacement);
+    	ps.setString(2, instruc_id);
+    }
+    
+    public void deleteStudent(int stud_id) throws Exception { //Create group delete table 3
+    	sql = "delete from student where stud_id = ? ";
+    	ps = connectiont.prepareStatement(sql);
+    	ps.setString(1, stud_id);
+    	ps.executeUpdate();
+    }
+
+	
 	public void close() {
         try {
             if (resultSet != null) {
