@@ -16,7 +16,7 @@ public class ClassroomDBConsole {
         	while (true) {        		
                 choice = selectTableMenu(); //edit for actual menu - select table you want to edit
                 if (choice == 7) {
-                	System.out.println("Thank your for trying this program...");
+                	System.out.println("This program will now exit.");
                 	break;
                 }
                 tableChoice(choice); //case section for choices
