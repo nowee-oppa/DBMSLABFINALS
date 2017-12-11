@@ -54,7 +54,7 @@ public class EskwelaController {
     
     //start of instructor table
     public void addInstructor(String instruc_id, String first_name, String last_name, String gender, String classcode) throws Exception{ //Create group create/insert table 1
-    	sql = "Insert into classes values(?,?,?,?,?)";
+    	sql = "Insert into instructor values(?,?,?,?,?)";
     	ps = connection.prepareStatement(sql);
     	ps.setString(1, instruc_id);
     	ps.setString(2, first_name);
@@ -121,7 +121,7 @@ public class EskwelaController {
     
     //start of subject table
     public void addSubject(String description,int instruc_id,String subjid,int units) throws Exception{ //Create group create/insert table 4
-    	sql = "Insert into classes values(?,?,?,?)";
+    	sql = "Insert into subject values(?,?,?,?)";
     	ps = connection.prepareStatement(sql);
     	ps.setString(1, description);
     	ps.setInt(2, instruc_id);
@@ -138,14 +138,14 @@ public class EskwelaController {
     }
     
     public void updateSubject(int subjid, String col, String replacement) throws Exception{ //Create group update table 3
-    	sql = "update student set " + col + " = ? where stud_id = ?";
+    	sql = "update subject set " + col + " = ? where stud_id = ?";
     	ps = connection.prepareStatement(sql);
     	ps.setString(1, replacement);
     	ps.setInt(2, subjid);
     }
     
     public void deleteSubject(String subjid) throws Exception { //Create group delete table 3
-    	sql = "delete from student where stud_id = ? ";
+    	sql = "delete from subject where stud_id = ? ";
     	ps = connection.prepareStatement(sql);
     	ps.setString(1, subjid);
     	ps.executeUpdate();
