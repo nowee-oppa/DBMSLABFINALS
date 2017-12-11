@@ -289,6 +289,8 @@ public class ClassroomDBConsole {
     			System.out.println("There are currently no classes available.");
     		} else {
     			System.out.println("Current available classes:");
+    			System.out.printf("    %-15s %-15s %-15s %-15s %-15s5n","Class Code",
+    					"Room","Days","Subject Number", "Units");
     			System.out.println();
     			int row = 1;
     			while (cls.next()) {
@@ -303,14 +305,43 @@ public class ClassroomDBConsole {
 			printDivider();
 			System.out.println();
     	} catch (Exception e) {
-    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+    		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
     	}
     }
     
+    private static void editClass() {
+    	try {
+    		String classcode = null;
+    		ResultSet cls = null;
+    		do {
+    			cls = controller.viewClasses();
+    			if (getResTotal(cls == 0)) {
+    				System.out.println("No classes are available at this time.");
+    			}
+    			System.out.println("Enter the classcode of the class that you wish to edit from the table: ");
+    			String classcode = kbd.nextLn();
+    			System.out.println("Enter the column that you wish to change");
+    			String col = kb.nextLn();
+    			System.out.println("Enter the new value of the item: ");
+    			if (col.equals("5") || col.equals("units")) {
+    				int val = kb.nexInt();
+    				controller.updateClass(classcode, col, val);
+    			} else {
+    				String value = kb.nextLn();
+    				controller.updateClass(classcode, col, value);
+    			}
+    			cls = null;
+    			
+    		}
+    	} catch (Exception e) {
+    		System.err.println("Error: ")
+    	}
+    }
+    // delete option for table 1 classes
     public static void deleteClasses() {
     	printDivider();
     	try {
-    		ResultSet cls = controller.viewClasses()
+    		ResultSet cls = controller.viewClasses();
     		System.out.print("Enter the class code of the class you wish to remove from the list.");
     		String cc = kbd.nextln();
     		controller.deleteClass(cc);
