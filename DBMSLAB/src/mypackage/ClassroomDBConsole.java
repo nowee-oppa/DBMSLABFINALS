@@ -9,6 +9,7 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 public class ClassroomDBConsole {
     private static EskwelaController controller;
     private static Scanner kb = new Scanner(System.in);
+    private static int procCRUD;
     
     //MAIN METHOD HERE
     public static void main(String[] args) {
@@ -149,7 +150,7 @@ public class ClassroomDBConsole {
     			break;
     		case 2:
     			//retrieve
-                listSubjects();
+                	listSubjects();
     			break;
     		case 3:
     			//update
@@ -268,7 +269,7 @@ public class ClassroomDBConsole {
     	System.out.print("Enter the subject id for this class: ");
     	String subjid = kb.nextLine();
     	System.out.print("How many units does this class have: ");
-    	int units = kb.nextLine();
+    	int units = kb.nextInt();
     	
     	try {
     		controller.addClass(classcode, room, days, subjid, units);
@@ -286,7 +287,26 @@ public class ClassroomDBConsole {
     private static void viewClasses() {
     	printDivider();
     	try {
-    		ResultSet cls = controller.
+    		ResultSet cls = controller.listClasses();
+    		if (getResTotal(cls) == 0) {
+    			System.out.println("There are currently no classes available.");
+    		} else {
+    			System.out.println("Current available classes:");
+    			System.out.println();
+    			int row = 1;
+    			while (cls.next()) {
+    				String ccode = cls.getString(1);
+    				String rm = cls.getString(2);
+    				String dys = cls.getString(3);
+    				String sub = cls.getString(4);
+    				int unitNum = cls.getInt(5);
+    				System.out.printf("%-4d %-15s %-15s %-15s %-15s %-15s%n", row++, ccode, rm, dys, sub, unitNum);
+    			}
+    		}
+			printDivider();
+			System.out.println();
+    	} catch (Exception e) {
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
     
