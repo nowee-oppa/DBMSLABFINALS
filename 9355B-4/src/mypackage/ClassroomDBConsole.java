@@ -125,16 +125,16 @@ public class ClassroomDBConsole {
     public static void processStudent(int procCRUD){
     	switch (procCRUD) {
     		case 1:
-    			//create
+    			addStudent();
     			break;
     		case 2:
-    			//retrieve
+    			viewStudent();
     			break;
     		case 3:
-    			//update
+    			editStudent();
     			break;
     		case 4:
-    			//delete
+    			deleteStudent();
     			break;
     	}
     }
@@ -142,17 +142,16 @@ public class ClassroomDBConsole {
     public static void processSubject(int procCRUD){
     	switch (procCRUD) {
     		case 1:
-    			//create
+    			addSubject();
     			break;
     		case 2:
-    			//retrieve
-                	//listSubject();
+    			viewSubject();
     			break;
     		case 3:
-    			//update
+    			editSubject();
     			break;
     		case 4:
-    			//delete
+    			deleteSubject();
     			break;
     	}
     }
@@ -278,8 +277,7 @@ public class ClassroomDBConsole {
     		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
     	}
     }
-    
-    //class table, retrieve data from table
+
     private static void viewClass() {
     	printDivider();
     	try {
@@ -288,8 +286,8 @@ public class ClassroomDBConsole {
     			System.out.println("There are currently no classes available.");
     		} else {
     			System.out.println("Current available classes:");
-    			System.out.printf("    %-15s %-15s %-15s %-15s %-15s5n","Class Code",
-    					"Room","Days","Subject Number", "Units");
+    			System.out.printf("    %-15s %-15s %-15s %-15s %-15s","classcode",
+    					"Room","Day","subjid", "Units");
     			System.out.println();
     			int row = 1;
     			while (cls.next()) {
@@ -324,7 +322,7 @@ public class ClassroomDBConsole {
 			controller.updateClass(classcode, col, value);
 			cls = null;
     	} catch (Exception e) {
-    		System.err.println("Error: ");
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
 
@@ -377,8 +375,8 @@ public class ClassroomDBConsole {
     			System.out.println("There are currently no Instructor.");
     		} else {
     			System.out.println("Current Instructor:");
-    			System.out.printf("    %-15s %-15s %-15s %-15s %-15s5n","Instructor ID",
-    					"First name","Last name","gender", "classcode");
+    			System.out.printf("    %-15s %-15s %-15s %-15s %-15s","instruc_id",
+    					"First_name","Last_name","gender", "classcode");
     			System.out.println();
     			int row = 1;
     			while (cls.next()) {
@@ -399,38 +397,218 @@ public class ClassroomDBConsole {
     
     private static void editInstructor() {
     	try {
-    		viewClass();
-			ResultSet cls = controller.listClass();
+    		viewInstructor();
+			ResultSet cls = controller.listInstructor();
 			if (getResTotal(cls) == 0) {
 				System.out.println("No classes are available at this time.");
 			}
 			System.out.println("Enter the Instructor ID of the Instructor that you wish to edit from the table: ");
-			String classcode = kb.nextLine();
+			int instruc_id = Integer.parseInt(kb.nextLine());
 			System.out.println("Enter the column that you wish to change");
 			String col = kb.nextLine();
 			System.out.println("Enter the new value of the item: ");
 			String value = kb.nextLine();
-			controller.updateClass(classcode, col, value);
+			controller.updateInstructor(instruc_id, col, value);
 			cls = null;
     	} catch (Exception e) {
-    		System.err.println("Error: ");
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
 
     public static void deleteInstructor() {
     	printDivider();
     	try {
-    		viewClass();
+    		viewInstructor();
     		System.out.print("Enter the Instructor ID of the instructor you wish to remove from the list.");
-    		String cc = kb.nextLine();
-    		controller.deleteInstructor(cc);
-    		System.out.println(cc + " has been removed from the instructor list.");
+    		int insid = Integer.parseInt(kb.nextLine());
+    		controller.deleteInstructor(insid);
+    		System.out.println(insid + " has been removed from the instructor list.");
     	} catch (Exception e){ 
     		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
     	}
     }
     //end of instructor table
     
+  //start of student table    
+    private static void addStudent(){
+    	printDivider();
+    	System.out.print("Enter the ID Number: ");
+    	int stud_id = Integer.parseInt(kb.nextLine());
+    	System.out.print("Enter the First Name: ");
+    	String first_name = kb.nextLine();
+    	System.out.print("Enter the Last Name: ");
+    	String last_name = kb.nextLine();
+    	System.out.print("Enter the address: ");
+    	String address = kb.nextLine();
+    	System.out.print("Enter the gender(M/F): ");
+    	String gender = kb.nextLine();
+    	System.out.print("Enter course: ");
+    	String course = kb.nextLine();
+    	System.out.print("Enter year: ");
+    	int year = Integer.parseInt(kb.nextLine());
+    	
+    	try {
+    		controller.addStudent(stud_id, first_name, last_name, address, gender, course, year);
+    		System.out.println(first_name + " " + last_name + " was successfully added to the list of Student.");
+    		printDivider();
+    		System.out.println();
+    	} catch (MySQLIntegrityConstraintViolationException e) {
+    		System.out.println("There is already a student with that ID within the system. Please try again.");
+    		addClass();
+    	} catch (Exception e) {
+    		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
+    	}
+    }
+    
+    private static void viewStudent() {
+    	printDivider();
+    	try {
+    		ResultSet cls = controller.listStudent();
+    		if (getResTotal(cls) == 0) {
+    			System.out.println("There are currently no Student.");
+    		} else {
+    			System.out.println("Current Instructor:");
+    			System.out.printf("    %-15s %-15s %-15s %-15s %-15s %-15s %-15s","stud_id",
+    					"First_name" ,"Last_name" ,"address" ,"gender" , "course", "year");
+    			System.out.println();
+    			int row = 1;
+    			while (cls.next()) {
+    				String stid = cls.getString(1);
+    				String fstname = cls.getString(2);
+    				String lstname = cls.getString(3);
+    				String address = cls.getString(4);
+    				String gen = cls.getString(5);
+    				String course = cls.getString(6);
+    				String year = cls.getString(7);
+    				System.out.printf("%-4d %-15s %-15s %-15s %-15s %-15s %-15s %-15s%n", row++, stid, fstname, lstname,address, gen, course, year);
+    			}
+    		}
+			printDivider();
+			System.out.println();
+    	} catch (Exception e) {
+    		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
+    	}
+    }
+    
+    private static void editStudent() {
+    	try {
+    		viewStudent();
+			ResultSet cls = controller.listStudent();
+			if (getResTotal(cls) == 0) {
+				System.out.println("No students at this time.");
+			}
+			System.out.println("Enter the student ID of the student that you wish to edit from the table: ");
+			int stud_id = Integer.parseInt(kb.nextLine());
+			System.out.println("Enter the column that you wish to change");
+			String col = kb.nextLine();
+			System.out.println("Enter the new value of the item: ");
+			String value = kb.nextLine();
+			controller.updateStudent(stud_id, col, value);
+			cls = null;
+    	} catch (Exception e) {
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+    	}
+    }
+
+    public static void deleteStudent() {
+    	printDivider();
+    	try {
+    		viewStudent();
+    		System.out.print("Enter the Student ID of the Student you wish to remove from the list.");
+    		int stid = Integer.parseInt(kb.nextLine());
+    		controller.deleteStudent(stid);
+    		System.out.println(stid + " has been removed from the student list.");
+    	} catch (Exception e){ 
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+    	}
+    }
+    //end of student table
+    
+    //start of Subject table    
+    private static void addSubject(){
+    	printDivider();
+    	System.out.print("Enter the Subject ID: ");
+    	String subj_id = kb.nextLine();
+    	System.out.print("Enter the desc: ");
+    	String desc = kb.nextLine();
+    	System.out.print("Enter how many units: ");
+    	int units = Integer.parseInt(kb.nextLine());
+    	System.out.print("Enter the instructor ID: ");
+    	int instuc_id = Integer.parseInt(kb.nextLine());
+    	
+    	try {
+    		controller.addSubject(subj_id, desc, units, instuc_id);
+    		System.out.println(subj_id + " " + units + " was successfully added to the list of Suject.");
+    		printDivider();
+    		System.out.println();
+    	} catch (MySQLIntegrityConstraintViolationException e) {
+    		System.out.println("There is already a Subject with that ID within the system. Please try again.");
+    		addSubject();
+    	} catch (Exception e) {
+    		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
+    	}
+    }
+    
+    private static void viewSubject() {
+    	printDivider();
+    	try {
+    		ResultSet cls = controller.listSubject();
+    		if (getResTotal(cls) == 0) {
+    			System.out.println("There are currently no Subject.");
+    		} else {
+    			System.out.println("Current Subject:");
+    			System.out.printf("    %-15s %-15s %-15s %-15s","subj_id",
+    					"desc","units","instruc_id");
+    			System.out.println();
+    			int row = 1;
+    			while (cls.next()) {
+    				String inid = cls.getString(1);
+    				String fstname = cls.getString(2);
+    				String lstname = cls.getString(3);
+    				String gen = cls.getString(4);
+    				System.out.printf("%-4d %-15s %-15s %-15s %-15s%n", row++, inid, fstname, lstname, gen);
+    			}
+    		}
+			printDivider();
+			System.out.println();
+    	} catch (Exception e) {
+    		System.err.println("Error" + e.getClass() + ": \n" + e.getMessage());
+    	}
+    }
+    
+    private static void editSubject() {
+    	try {
+    		viewInstructor();
+			ResultSet cls = controller.listSubject();
+			if (getResTotal(cls) == 0) {
+				System.out.println("No Subject are available at this time.");
+			}
+			System.out.println("Enter the Subject ID of the Subject that you wish to edit from the table: ");
+			String subj_id = kb.nextLine();
+			System.out.println("Enter the column that you wish to change");
+			String col = kb.nextLine();
+			System.out.println("Enter the new value of the item: ");
+			String value = kb.nextLine();
+			controller.updateSubject(subj_id, col, value);
+			cls = null;
+    	} catch (Exception e) {
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+    	}
+    }
+
+    public static void deleteSubject() {
+    	printDivider();
+    	try {
+    		viewSubject();
+    		System.out.print("Enter the Subject ID of the subject you wish to remove from the list.");
+    		String subj_id = kb.nextLine();
+    		controller.deleteSubject(subj_id);
+    		System.out.println(subj_id + " has been removed from the subject list.");
+    	} catch (Exception e){ 
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+    	}
+    }
+    //end of subject table
     
     private static void printDivider() {
     	for (int i = 1; i <= 90; i++) {
